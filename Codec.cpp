@@ -63,7 +63,7 @@ void FlacCodec::FlacDecoderInternal::metadata_callback(const ::FLAC__StreamMetad
         auto bps = metadata->data.stream_info.bits_per_sample;
         auto frame_size = metadata->data.stream_info.min_framesize;
 
-        _decoder->m_format.SetAll(sample_rate, channels, bps, total_samples, channels * sizeof(AmAudioSample), AM_SAMPLE_FORMAT_FLOAT);
+        _decoder->m_format.SetAll(sample_rate, channels, bps, total_samples, channels * sizeof(AmAudioSample), eAudioSampleFormat_Float32);
     }
 }
 
@@ -86,7 +86,7 @@ void FlacCodec::FlacDecoderInternal::error_callback(::FLAC__StreamDecoderErrorSt
     if (_decoder->_file == nullptr)
         return ::FLAC__STREAM_DECODER_SEEK_STATUS_ERROR;
 
-    _decoder->_file->Seek(absolute_byte_offset, eFSO_START);
+    _decoder->_file->Seek(absolute_byte_offset, eFileSeekOrigin_Start);
     return ::FLAC__STREAM_DECODER_SEEK_STATUS_OK;
 }
 
