@@ -55,14 +55,14 @@ AM_API_PLUGIN bool RegisterPlugin(Engine* engine, MemoryManager* memoryManager)
     s_engine = engine;
     s_memoryManager = memoryManager;
 
-    s_flacCodec = ampoolnew(MemoryPoolKind::Engine, FlacCodec);
+    s_flacCodec = ampoolnew(eMemoryPoolKind_Engine, FlacCodec);
 
     return true;
 }
 
 AM_API_PLUGIN bool UnregisterPlugin()
 {
-    ampooldelete(MemoryPoolKind::Engine, FlacCodec, s_flacCodec);
+    ampooldelete(eMemoryPoolKind_Engine, FlacCodec, s_flacCodec);
     s_flacCodec = nullptr;
 
     s_engine = nullptr;

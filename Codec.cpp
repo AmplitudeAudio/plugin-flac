@@ -218,22 +218,22 @@ AmUInt64 FlacCodec::FlacEncoder::Write(AudioBuffer* in, AmUInt64 offset, AmUInt6
 
 Codec::Decoder* FlacCodec::CreateDecoder()
 {
-    return ampoolnew(MemoryPoolKind::Codec, FlacDecoder, this);
+    return ampoolnew(eMemoryPoolKind_Codec, FlacDecoder, this);
 }
 
 void FlacCodec::DestroyDecoder(Decoder* decoder)
 {
-    ampooldelete(MemoryPoolKind::Codec, FlacDecoder, (FlacDecoder*)decoder);
+    ampooldelete(eMemoryPoolKind_Codec, FlacDecoder, (FlacDecoder*)decoder);
 }
 
 Codec::Encoder* FlacCodec::CreateEncoder()
 {
-    return ampoolnew(MemoryPoolKind::Codec, FlacEncoder, this);
+    return ampoolnew(eMemoryPoolKind_Codec, FlacEncoder, this);
 }
 
 void FlacCodec::DestroyEncoder(Encoder* encoder)
 {
-    ampooldelete(MemoryPoolKind::Codec, FlacEncoder, (FlacEncoder*)encoder);
+    ampooldelete(eMemoryPoolKind_Codec, FlacEncoder, (FlacEncoder*)encoder);
 }
 
 bool FlacCodec::CanHandleFile(std::shared_ptr<File> file) const
