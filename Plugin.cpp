@@ -14,7 +14,7 @@
 
 #include <Codec.h>
 
-AM_API_PRIVATE FlacCodec* s_flacCodec = nullptr;
+AM_API_PRIVATE std::shared_ptr<FlacCodec> s_flacCodec = nullptr;
 AM_API_PRIVATE Engine* s_engine = nullptr;
 AM_API_PRIVATE MemoryManager* s_memoryManager = nullptr;
 
@@ -27,12 +27,12 @@ AM_API_PLUGIN const char* PluginName()
 
 AM_API_PLUGIN const char* PluginVersion()
 {
-    return "0.1.0";
+    return "0.5.0";
 }
 
 AM_API_PLUGIN const char* PluginDescription()
 {
-    return "Official Amplitude plugin to encode and decode FLAC audio files.";
+    return "The official Amplitude plugin to encode and decode FLAC audio files.";
 }
 
 AM_API_PLUGIN const char* PluginAuthor()
@@ -55,15 +55,14 @@ AM_API_PLUGIN bool RegisterPlugin(Engine* engine, MemoryManager* memoryManager)
     s_engine = engine;
     s_memoryManager = memoryManager;
 
-    s_flacCodec = ampoolnew(eMemoryPoolKind_Engine, FlacCodec);
+    s_flacCodec = Engine::RegisterExtension<FlacCodec>();
 
     return true;
 }
 
 AM_API_PLUGIN bool UnregisterPlugin()
 {
-    ampooldelete(eMemoryPoolKind_Engine, FlacCodec, s_flacCodec);
-    s_flacCodec = nullptr;
+    Engine::UnregisterExtension(s_flacCodec);
 
     s_engine = nullptr;
     s_memoryManager = nullptr;
